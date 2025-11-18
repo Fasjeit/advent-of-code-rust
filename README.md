@@ -41,18 +41,15 @@ cargo scaffold <day>
 
 # output:
 # Created module file "src/bin/01.rs"
-# Created empty input file "data/inputs/01.txt"
-# Created empty example file "data/examples/01.txt"
+# Created empty input file "data/day_<day>/inputs/01.txt"
+# Created empty example file "data/day_<day>/examples/example_1.txt"
 # ---
 # 🎄 Type `cargo solve 01` to run your solution.
 ```
 
 Individual solutions live in the `./src/bin/` directory as separate binaries. _Inputs_ and _examples_ live in the the `./data` directory.
 
-Every [solution](https://github.com/fspoettel/advent-of-code-rust/blob/main/src/template.txt) has _tests_ referencing its _example_ file in `./data/examples`. Use these tests to develop and debug your solutions against the example input. In VS Code, `rust-analyzer` will display buttons for running / debugging these unit tests above the unit test blocks.
-
-> [!TIP]
-> If a day has multiple example inputs, you can use the `read_file_part()` helper in your tests instead of `read_file()`. If this e.g. applies to day 1, you can create a second example file `01-2.txt` and invoke the helper like `let result = part_two(&advent_of_code::template::read_file_part("examples", DAY, 2));`. This supports an arbitrary number of example files.
+Every [solution](https://github.com/fspoettel/advent-of-code-rust/blob/main/src/template.txt) has _tests_ referencing its _example_ file in `./data/day_<day>/examples`. Use these tests to develop and debug your solutions against the example input. In VS Code, `rust-analyzer` will display buttons for running / debugging these unit tests above the unit test blocks.
 
 ### ➡️ Download input for a day
 
@@ -67,11 +64,11 @@ cargo download <day>
 
 # output:
 # [INFO  aoc] 🎄 aoc-cli - Advent of Code command-line tool
-# [INFO  aoc_client] 🎅 Saved puzzle to 'data/puzzles/01.md'
-# [INFO  aoc_client] 🎅 Saved input to 'data/inputs/01.txt'
+# [INFO  aoc_client] 🎅 Saved puzzle to 'data/day_01/puzzle.md'
+# [INFO  aoc_client] 🎅 Saved input to 'data/day_01/input.txt'
 # ---
-# 🎄 Successfully wrote input to "data/inputs/01.txt".
-# 🎄 Successfully wrote puzzle to "data/puzzles/01.md".
+#🎄 Successfully wrote input to "data/day_01/input.txt".
+#🎄 Successfully wrote puzzle to "data/day_01/puzzle.md".
 ```
 
 ### ➡️ Run solutions for a day
@@ -190,11 +187,11 @@ cargo today
 # ---
 # 🎄 Type `cargo solve 01` to run your solution.
 # [INFO  aoc] 🎄 aoc-cli - Advent of Code command-line tool
-# [INFO  aoc_client] 🎅 Saved puzzle to 'data/puzzles/01.md'
-# [INFO  aoc_client] 🎅 Saved input to 'data/inputs/01.txt'
+# [INFO  aoc_client] 🎅 Saved puzzle to 'data/day_01/puzzle.md'
+# [INFO  aoc_client] 🎅 Saved input to 'data/day_01/input.txt'
 # ---
-# 🎄 Successfully wrote input to "data/inputs/01.txt".
-# 🎄 Successfully wrote puzzle to "data/puzzles/01.md".
+# 🎄 Successfully wrote input to "data/day_01/input.txt".
+# 🎄 Successfully wrote puzzle to "data/day_01/puzzle.md".
 #
 # Loaded session cookie from "/Users/<snip>/.adventofcode.session".
 # Fetching puzzle for day 1, 2022...

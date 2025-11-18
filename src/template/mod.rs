@@ -17,21 +17,14 @@ pub const ANSI_RESET: &str = "\x1b[0m";
 
 /// Helper function that reads a text file to a string.
 #[must_use]
-pub fn read_file(folder: &str, day: Day) -> String {
-    let cwd = env::current_dir().unwrap();
-    let filepath = cwd.join("data").join(folder).join(format!("{day}.txt"));
-    let f = fs::read_to_string(filepath);
-    f.expect("could not open input file")
-}
-
-/// Helper function that reads a text file to string, appending a part suffix. E.g. like `01-2.txt`.
-#[must_use]
-pub fn read_file_part(folder: &str, day: Day, part: u8) -> String {
+pub fn read_file_input(folder: &str, day: Day, name: &str) -> String {
     let cwd = env::current_dir().unwrap();
     let filepath = cwd
         .join("data")
+        .join(format!("day_{day}"))
         .join(folder)
-        .join(format!("{day}-{part}.txt"));
+        .join(name);
+
     let f = fs::read_to_string(filepath);
     f.expect("could not open input file")
 }
@@ -61,7 +54,8 @@ macro_rules! solution {
 
         fn main() {
             use $crate::template::runner::*;
-            let input = $crate::template::read_file("inputs", DAY);
+            //     // data/day_{0}/examples/example_1.txt
+            let input = $crate::template::read_file_input("", DAY, "input.txt");
             $( run_part($func, &input, DAY, $part); )*
         }
     };

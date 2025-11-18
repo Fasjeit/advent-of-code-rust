@@ -5,6 +5,7 @@ use std::{
 };
 
 use crate::template::Day;
+use crate::{input_path, puzzle_path};
 
 #[derive(Debug)]
 pub enum AocCommandError {
@@ -81,11 +82,11 @@ pub fn submit(day: Day, part: u8, result: &str) -> Result<Output, AocCommandErro
 }
 
 fn get_input_path(day: Day) -> String {
-    format!("data/inputs/{day}.txt")
+    format!(input_path!(), day)
 }
 
 fn get_puzzle_path(day: Day) -> String {
-    format!("data/puzzles/{day}.md")
+    format!(puzzle_path!(), day)
 }
 
 fn get_year() -> Option<u16> {

@@ -1,4 +1,5 @@
 use std::{
+    fs,
     fs::{File, OpenOptions},
     io::Write,
     process,
@@ -28,9 +29,20 @@ fn create_file(path: &str) -> Result<File, std::io::Error> {
 }
 
 pub fn handle(day: Day, overwrite: bool) {
-    let input_path = format!("data/inputs/{day}.txt");
-    let example_path = format!("data/examples/{day}.txt");
-    let module_path = format!("src/bin/{day}.rs");
+    let day_path = format!(day_path!(), day);
+    let examples_path = format!(examples_path!(), day);
+
+    let input_path = format!(input_path!(), day);
+    let example_path = format!(example_path!(), day);
+    let module_path = format!(module_path!(), day);
+
+    match fs::create_dir_all(day_path) {
+        Ok(()) => (),
+        Err(e) => {
+            eprintln!("Failed to create day folder: {e}");
+            process::exit(1);
+        }
+    };
 
     let mut file = match safe_create_file(&module_path, overwrite) {
         Ok(file) => file,
@@ -63,6 +75,14 @@ pub fn handle(day: Day, overwrite: bool) {
             process::exit(1);
         }
     }
+
+    match fs::create_dir_all(examples_path) {
+        Ok(()) => (),
+        Err(e) => {
+            eprintln!("Failed to create examples folder: {e}");
+            process::exit(1);
+        }
+    };
 
     match create_file(&example_path) {
         Ok(_) => {
