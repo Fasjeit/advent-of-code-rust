@@ -397,6 +397,16 @@ impl<T: Display> Matrix<T> {
             println!();
         }
     }
+
+    #[allow(dead_code)]
+    pub fn print_part(&self, pos_left_up: Index, pos_right_down: Index) {
+        for y in pos_left_up.y..pos_right_down.y {
+            for x in pos_left_up.x..pos_right_down.x {
+                print!("{}", self[y][x]);
+            }
+            println!();
+        }
+    }
 }
 
 impl<T> std::ops::Index<usize> for Matrix<T> {
