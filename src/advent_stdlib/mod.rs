@@ -11,11 +11,7 @@ macro_rules! bench {
         let result = $expr;
         let elapsed = start.elapsed();
 
-        println!(
-            "[BENCH] {} took {:?}",
-            stringify!($expr),
-            elapsed
-        );
+        println!("[BENCH] {} took {:?}", stringify!($expr), elapsed);
 
         result
     }};
