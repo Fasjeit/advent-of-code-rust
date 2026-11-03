@@ -65,13 +65,11 @@ macro_rules! bench {
 #[allow(dead_code)]
 pub fn pseudo_dijkstra(
     matrix: &mut Matrix<MapCell>,
+    start_position: Index,
     ending_position: Option<&Index>,
-    to_visit_set: &mut BinaryHeap<Reverse<(u64, Index)>>,
 ) -> Option<u64> {
     // Usage:
-    // let mut to_visit_set = BinaryHeap::new();
-    // to_visit_set.push(Reverse((0_u64, start_index)));
-    // let result = pseudo_dijkstra(&mut robot.map, Some(&end_index), &mut to_visit_set);
+    // let result = pseudo_dijkstra(&mut robot.map, start_index, Some(&end_index));
     // or without end_index, if need to visit all cells.
     //
     // Also can be rewritten to use with custom cost object with custom comparer.
@@ -108,7 +106,12 @@ pub fn pseudo_dijkstra(
     // and then
     // to_visit_set: &mut BinaryHeap<Reverse<CostState>>
 
-    let mut safe_counter = 100000;
+    let mut safe_counter = 100_000;
+
+    let mut to_visit_set = BinaryHeap::<Reverse<(u64, Index)>>::new();
+
+    // (cost, recursion_level, position)
+    to_visit_set.push(Reverse((0, start_position)));
 
     while let Some(Reverse((cost, index))) = to_visit_set.pop() {
         if safe_counter <= 0 {
@@ -116,12 +119,12 @@ pub fn pseudo_dijkstra(
         }
         safe_counter -= 1;
 
-        if matrix[index.y][index.x].cost != u64::MAX {
-            assert!(matrix[index.y][index.x].cost <= cost);
+        if matrix[index].cost != u64::MAX {
+            assert!(matrix[index].cost <= cost);
             continue;
         }
 
-        matrix[index.y][index.x].cost = cost;
+        matrix[index].cost = cost;
 
         //dbg!(&index);
 
@@ -131,15 +134,15 @@ pub fn pseudo_dijkstra(
             return Some(cost);
         }
 
-        for direction in [
-            Direction::Down,
-            Direction::Right,
-            Direction::Left,
+        for dir in [
             Direction::Up,
+            Direction::Down,
+            Direction::Left,
+            Direction::Right,
         ] {
-            if let Some(next_index) = index.navigate_to(matrix, &direction)
-                && !matrix[next_index.y][next_index.x].has_wall()
-                && matrix[next_index.y][next_index.x].cost >= (cost + 1)
+            if let Some(next_index) = index.navigate_to(matrix, &dir)
+                && !matrix[next_index].has_wall()
+                && matrix[next_index].cost >= (cost + 1)
             {
                 to_visit_set.push(Reverse((cost + 1, next_index)));
             }
