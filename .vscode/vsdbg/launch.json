@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "cppvsdbg",
+            "request": "launch",
+            "name": "Debug a solution",
+            "program": "${workspaceFolder}/target/debug/${fileBasenameNoExtension}.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "rust: cargo build bin"
+        },
+        {
+            "type": "cppvsdbg",
+            "request": "launch",
+            "name": "Debug unit tests for a solution",
+            "program": "${workspaceFolder}/target/debug/deps/${fileBasenameNoExtension}.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "rust: cargo test bin"
+        }
+    ]
+}
