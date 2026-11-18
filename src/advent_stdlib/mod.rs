@@ -106,7 +106,7 @@ pub fn pseudo_dijkstra(
     // and then
     // to_visit_set: &mut BinaryHeap<Reverse<CostState>>
 
-    let mut safe_counter = 100_000;
+    let mut safe_counter = 100000;
 
     let mut to_visit_set = BinaryHeap::<Reverse<(u64, Index)>>::new();
 
@@ -377,7 +377,7 @@ impl<T: From<char>> Matrix<T> {
 }
 
 impl<T: Display> Matrix<T> {
-    #[allow(dead_code)]
+    #[allow(dead_code, clippy::needless_range_loop)]
     pub fn print(&self) {
         for y in 0..self.size.y {
             for x in 0..self.size.x {
@@ -387,7 +387,7 @@ impl<T: Display> Matrix<T> {
         }
     }
 
-    #[allow(dead_code)]
+    #[allow(dead_code, clippy::needless_range_loop)]
     pub fn print_part(&self, pos_left_up: Index, pos_right_down: Index) {
         for y in pos_left_up.y..pos_right_down.y {
             for x in pos_left_up.x..pos_right_down.x {
